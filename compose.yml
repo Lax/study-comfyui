@@ -1,0 +1,33 @@
+services:
+
+  comfyui:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        - COMFYUI_VERSION=0.3.57
+        - https_proxy=http://172.17.0.1:64540
+    container_name: comfyui
+    ports:
+      - "8188:8188"
+    volumes:
+      - ./extra_model_paths.yaml:/workspace/comfyui/extra_model_paths.yaml
+      - /data/models/comfyui:/data/models/comfyui
+      - /data/models/repos:/data/models/repos
+      - ./cache/huggingface:/data/cache/huggingface
+      - ./cache/transformers:/root/.cache/huggingface/transformers
+      - ./cache/torch:/root/.cache/torch
+    runtime: nvidia
+    environment:
+      - NVIDIA_VISIBLE_DEVICES=all
+      - http_proxy=http://172.17.0.1:64540
+      - https_proxy=http://172.17.0.1:64540
+      - all_proxy=socks5://172.17.0.1:64540
+      - HF_HOME=/data/cache/huggingface
+      - HF_ENDPOINT=https://hf-mirror.com
+      - HF_HUB_OFFLINE=1
+      - TRANSFORMERS_OFFLINE=1
+      - PYTORCH_CUDA_ALLOC_CONF=backend:cudaMallocAsync
+      #- PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True
+    shm_size: "32g"
+    restart: no
