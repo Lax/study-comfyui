@@ -33,13 +33,13 @@ RUN mkdir -p ./comfyui && \
 WORKDIR /workspace/comfyui
 
 # Plugins
-ENV CONFYUI_MANAGER_VERSION=3.35
+ARG COMFYUI_MANAGER_VERSION=3.35
 RUN --mount=type=cache,target=/var/cache/apt \
     --mount=type=cache,target=/var/lib/apt \
     --mount=type=cache,target=/root/.cache/pip \
     --mount=type=cache,target=/root/.cache/huggingface \
     mkdir -p ./custom_nodes/comfyui-manager && \
-    wget -O- https://github.com/Comfy-Org/ComfyUI-Manager/archive/refs/tags/${CONFYUI_MANAGER_VERSION}.tar.gz | \
+    wget -O- https://github.com/Comfy-Org/ComfyUI-Manager/archive/refs/tags/${COMFYUI_MANAGER_VERSION}.tar.gz | \
     tar zxvf - --strip-components=1 -C ./custom_nodes/comfyui-manager && \
     for req in ./custom_nodes/*/requirements.txt; do \
         [ -f "$req" ] && pip install -r "$req"; \
