@@ -7,6 +7,7 @@ services:
       args:
         - COMFYUI_VERSION=0.3.57
         - COMFYUI_MANAGER_VERSION=3.35
+        - NUNCHAKU_VERSION=1.0.0
         - https_proxy=http://172.17.0.1:64540
     container_name: comfyui
     ports:

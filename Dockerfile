@@ -34,13 +34,16 @@ WORKDIR /workspace/comfyui
 
 # Plugins
 ARG COMFYUI_MANAGER_VERSION=3.35
+ARG NUNCHAKU_VERSION=1.0.0
 RUN --mount=type=cache,target=/var/cache/apt \
     --mount=type=cache,target=/var/lib/apt \
     --mount=type=cache,target=/root/.cache/pip \
     --mount=type=cache,target=/root/.cache/huggingface \
-    mkdir -p ./custom_nodes/comfyui-manager && \
+    mkdir -p ./custom_nodes/{comfyui-manager,nunchaku_nodes} && \
     wget -O- https://github.com/Comfy-Org/ComfyUI-Manager/archive/refs/tags/${COMFYUI_MANAGER_VERSION}.tar.gz | \
     tar zxvf - --strip-components=1 -C ./custom_nodes/comfyui-manager && \
+    wget -O- https://github.com/nunchaku-tech/ComfyUI-nunchaku/archive/refs/tags/v${NUNCHAKU_VERSION}.tar.gz | \
+    tar zxvf - --strip-components=1 -C ./custom_nodes/nunchaku_nodes && \
     for req in ./custom_nodes/*/requirements.txt; do \
         [ -f "$req" ] && pip install -r "$req"; \
     done
@@ -52,7 +55,10 @@ RUN --mount=type=cache,target=/var/cache/apt \
     --mount=type=cache,target=/var/lib/apt \
     --mount=type=cache,target=/root/.cache/pip \
     --mount=type=cache,target=/root/.cache/huggingface \
+    apt-get update && apt-get install -y --no-install-recommends \
+        libgl1 && \
     pip install -r requirements.txt && \
+    pip install https://modelscope.cn/models/nunchaku-tech/nunchaku/resolve/master/nunchaku-${NUNCHAKU_VERSION}+torch2.8-cp312-cp312-linux_x86_64.whl && \
     pip uninstall -y flash-attn && \
     pip install -U --use-pep517 --no-build-isolation --no-cache-dir "git+https://github.com/Dao-AILab/flash-attention.git"
 
