@@ -16,6 +16,7 @@ services:
       - ./_comfyui/extra_model_paths.yaml:/workspace/comfyui/extra_model_paths.yaml
       - ./_comfyui/output:/workspace/comfyui/output
       - ./_comfyui/input:/workspace/comfyui/input
+      - ./_comfyui/custom_nodes:/workspace/comfyui/custom_nodes/_local_
       - /data/models/comfyui:/data/models/comfyui
       - /data/models/repos:/data/models/repos
       - /data/cache/huggingface:/data/cache/huggingface

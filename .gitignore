@@ -6,3 +6,4 @@
 
 /_comfyui/output/*
 !/_comfyui/output/_output_images_will_be_put_here
+__pycache__
