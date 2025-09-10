@@ -14,6 +14,8 @@ services:
       - "8188:8188"
     volumes:
       - ./extra_model_paths.yaml:/workspace/comfyui/extra_model_paths.yaml
+      - ./_map_dir/output:/workspace/comfyui/output
+      - ./_map_dir/input:/workspace/comfyui/input
       - /data/models/comfyui:/data/models/comfyui
       - /data/models/repos:/data/models/repos
       - ./cache/huggingface:/data/cache/huggingface
@@ -22,9 +24,9 @@ services:
     runtime: nvidia
     environment:
       - NVIDIA_VISIBLE_DEVICES=all
-      - http_proxy=http://172.17.0.1:64540
+      #- http_proxy=http://172.17.0.1:64540
       - https_proxy=http://172.17.0.1:64540
-      - all_proxy=socks5://172.17.0.1:64540
+      #- all_proxy=socks5://172.17.0.1:64540
       - HF_HOME=/data/cache/huggingface
       - HF_ENDPOINT=https://hf-mirror.com
       - HF_HUB_OFFLINE=1
