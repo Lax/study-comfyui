@@ -59,7 +59,7 @@ RUN --mount=type=cache,target=/var/cache/apt \
     --mount=type=cache,target=/root/.cache/huggingface \
     pip install https://modelscope.cn/models/nunchaku-tech/nunchaku/resolve/master/nunchaku-${NUNCHAKU_VERSION}+torch2.8-cp312-cp312-linux_x86_64.whl && \
     pip uninstall -y flash-attn && \
-    pip install -U --use-pep517 --no-build-isolation --no-cache-dir "git+https://github.com/Dao-AILab/flash-attention.git"
+    pip install -U --use-pep517 --no-build-isolation --no-cache-dir "git+https://github.com/Dao-AILab/flash-attention.git@v2.8.3"
 
 # Plugins deps
 RUN --mount=type=cache,target=/var/cache/apt \
@@ -68,7 +68,8 @@ RUN --mount=type=cache,target=/var/cache/apt \
     --mount=type=cache,target=/root/.cache/huggingface \
     for req in ./custom_nodes/*/requirements.txt; do \
         [ -f "$req" ] && pip install -r "$req"; \
-    done
+    done && \
+    pip install transformers==4.56.1
 
 ## ------------------------------
 ## 5. Default entrypoint
