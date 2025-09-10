@@ -13,14 +13,14 @@ services:
     ports:
       - "8188:8188"
     volumes:
-      - ./extra_model_paths.yaml:/workspace/comfyui/extra_model_paths.yaml
-      - ./_map_dir/output:/workspace/comfyui/output
-      - ./_map_dir/input:/workspace/comfyui/input
+      - ./_comfyui/extra_model_paths.yaml:/workspace/comfyui/extra_model_paths.yaml
+      - ./_comfyui/output:/workspace/comfyui/output
+      - ./_comfyui/input:/workspace/comfyui/input
       - /data/models/comfyui:/data/models/comfyui
       - /data/models/repos:/data/models/repos
-      - ./cache/huggingface:/data/cache/huggingface
-      - ./cache/transformers:/root/.cache/huggingface/transformers
-      - ./cache/torch:/root/.cache/torch
+      - /data/cache/huggingface:/data/cache/huggingface
+      - /data/cache/transformers:/root/.cache/huggingface/transformers
+      - /data/cache/torch:/root/.cache/torch
     runtime: nvidia
     environment:
       - NVIDIA_VISIBLE_DEVICES=all

@@ -1,2 +1,8 @@
-_map_dir/
-cache/
+/_comfyui/input/*
+!/_comfyui/input/.gitkeep
+!/_comfyui/input/3d/
+/_comfyui/input/3d/*
+!/_comfyui/input/3d/.gitkeep
+
+/_comfyui/output/*
+!/_comfyui/output/_output_images_will_be_put_here
