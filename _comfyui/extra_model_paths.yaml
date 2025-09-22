@@ -19,3 +19,5 @@ comfyui:
 
      audio_encoders: models/audio_encoders/
      text_encoders: models/text_encoders/
+
+     prompt_generator: models/prompt_generator/

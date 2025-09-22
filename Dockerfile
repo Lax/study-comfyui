@@ -35,13 +35,13 @@ WORKDIR /workspace/comfyui
 # Plugins source
 ARG COMFYUI_MANAGER_VERSION=3.35
 ARG NUNCHAKU_VERSION=1.0.0
-RUN mkdir -p ./custom_nodes/{comfyui-manager,nunchaku_nodes,img2txt-comfyui-nodes} && \
+RUN mkdir -p ./custom_nodes/{comfyui-manager,nunchaku_nodes,minicpm} && \
     wget -O- https://github.com/Comfy-Org/ComfyUI-Manager/archive/refs/tags/${COMFYUI_MANAGER_VERSION}.tar.gz | \
     tar zxvf - --strip-components=1 -C ./custom_nodes/comfyui-manager && \
     wget -O- https://github.com/nunchaku-tech/ComfyUI-nunchaku/archive/refs/tags/v${NUNCHAKU_VERSION}.tar.gz | \
     tar zxvf - --strip-components=1 -C ./custom_nodes/nunchaku_nodes && \
-    wget -O- https://github.com/christian-byrne/img2txt-comfyui-nodes/archive/refs/heads/master.tar.gz | \
-    tar zxvf - --strip-components=1 -C ./custom_nodes/img2txt-comfyui-nodes
+    wget -O- https://github.com/Lax/ComfyUI_MiniCPM-V-4_5/archive/refs/heads/master.tar.gz | \
+    tar zxvf - --strip-components=1 -C ./custom_nodes/minicpm
 
 # ------------------------------
 # 4. Install environment deps
