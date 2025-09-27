@@ -28,7 +28,7 @@ RUN mkdir -p /root/.pip && \
 # 3. Download and extract Stable Diffusion source
 # ------------------------------
 RUN mkdir -p ./comfyui && \
-    wget -O- https://github.com/comfyanonymous/ComfyUI/archive/refs/tags/v${COMFYUI_VERSION}.tar.gz | \
+    curl -sSL -o- $(curl -s https://api.github.com/repos/comfyanonymous/ComfyUI/releases/tags/v${COMFYUI_VERSION} | jq -r '.tarball_url') | \
     tar zxvf - --strip-components=1 -C comfyui
 WORKDIR /workspace/comfyui
 
@@ -48,6 +48,8 @@ RUN mkdir -p ./custom_nodes/{comfyui-manager,nunchaku_nodes,minicpm} && \
 # ------------------------------
 RUN --mount=type=cache,target=/var/cache/apt \
     --mount=type=cache,target=/var/lib/apt \
+    --mount=type=cache,target=/root/.cache/pip \
+    --mount=type=cache,target=/root/.cache/huggingface \
     apt-get update && apt-get install -y --no-install-recommends \
         libgl1 && \
     pip install -r requirements.txt
